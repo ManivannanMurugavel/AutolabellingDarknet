@@ -165,10 +165,10 @@ def detect(net, meta, image, thresh=.25, hier_thresh=.5, nms=.45):
 font = cv2.FONT_HERSHEY_SIMPLEX
 net = load_net("cfg/yolov3.cfg".encode('utf-8'), "yolov3.weights".encode('utf-8'), 0)
 meta = load_meta("cfg/coco.data".encode('utf-8'))
-detecting_objects = ['person','backpack','handbag','chair']
 
 def main():
 	srcPath = 'input'
+	class_name = "person"
 	listImages = os.listdir(srcPath)
 	for listImage in listImages:
 	    print(listImage)
@@ -179,7 +179,7 @@ def main():
 	    img = cv2.imread(fullPath)
 	    for output in outputs:
 	        text = output[0].decode("utf-8")
-	        if text == 'person':
+	        if text == class_name:
 	            x = int(output[2][0])
 	            y = int(output[2][1])
 	            fw = int(output[2][2])
@@ -205,46 +205,6 @@ def main():
 	    	print('image saved')
 
 
-
-
-
-# cap = cv2.VideoCapture(0)
-# less = 100
-# cap = cv2.VideoCapture(1)
-# def main():
-#   while(True):
-#     ret,img = cap.read()
-#     if ret == True:
-#         # img = ori_img[0:416,0:416].copy()
-#         # print(img.shape)
-#         # img = cv2.imread('test_yolo_obj_11.png')
-#         cv2.imwrite('test.jpg',img)
-#         outputs = detect(net, meta, "test.jpg")
-#         # print(outputs)
-#         for color,output in zip(colors,outputs):
-#             text = output[0]
-#             x = int(output[2][0])
-#             y = int(output[2][1])
-#             fw = int(output[2][2])
-#             fh = int(output[2][3])
-#             w = int(fw/2)
-#             h = int(fh/2)
-#             acc = int(output[1] * 100)
-#             left = y - h
-#             top = x - w
-#             right = y + h
-#             bottom = x + w
-#             if text in detecting_objects:
-#                 cv2.rectangle(img,(top,left),(bottom,right),color,2)
-#                 cv2.putText(img,'{}-{}%'.format(text,acc),(top,left), font, 0.3,(255,255,255),1)
-#         	# print(output)
-#         # if len(outputs) > 0:
-#         #   print(outputs[0][0])
-#         cv2.imshow('image',img)
-#         if cv2.waitKey(1) & 0xFF == ord('q'):
-#         	break
-#     else:
-#         break
 
 
 if __name__ == "__main__":
