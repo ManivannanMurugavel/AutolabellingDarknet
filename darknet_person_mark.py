@@ -53,7 +53,6 @@ class METADATA(Structure):
 colors = [tuple(255 * np.random.rand(3)) for _ in range(15)]
   
 
-#lib = CDLL("/home/pjreddie/documents/darknet/libdarknet.so", RTLD_GLOBAL)
 lib = CDLL("./libdarknet.so", RTLD_GLOBAL)
 lib.network_width.argtypes = [c_void_p]
 lib.network_width.restype = c_int
